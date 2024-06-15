@@ -4,12 +4,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +35,7 @@ public class ExtensionsController {
 	 * @return
 	 */
 	@PostMapping("signup")
-	public ResponseModel signup(@RequestHeader String walletId, String publicKey, String pkSharding) {
+	public ResponseModel signup(String walletId, String publicKey, String pkSharding) {
 		if (StringUtils.isAnyBlank(walletId, publicKey, pkSharding)) {
 			return ResponseModel.fail601();
 		}
@@ -57,8 +56,8 @@ public class ExtensionsController {
 	 * @param signatureHex
 	 * @return
 	 */
-	@GetMapping("sharding-get")
-	public ResponseModel getSharding(@RequestHeader String walletId, String randomStr, String signatureHex) {
+	@PostMapping("sharding-get")
+	public ResponseModel getSharding(String walletId, String randomStr, String signatureHex) {
 		Wallet wallet = this.walletMapper.selectByPrimaryKey(walletId);
 		if (wallet == null) {
 			return ResponseModel.fail602();
@@ -68,7 +67,7 @@ public class ExtensionsController {
 		paramMap.put("signatureHex", signatureHex);
 		paramMap.put("message", randomStr);
 		String result = HttpClientUtil.httpPost(signatureServer + "verify-msg", paramMap);
-		if (Boolean.getBoolean(result)) {
+		if (BooleanUtils.toBoolean(result)) {
 			return ResponseModel.sucessData(wallet.getPkSharding());
 		}
 		return ResponseModel.fail("Invalid signature");
