@@ -50,14 +50,14 @@ public class ExtensionsController {
 	}
 	
 	/**
-	 * 获取分片
+	 * 验证分片
 	 * @param walletId
 	 * @param randomStr
 	 * @param signatureHex
 	 * @return
 	 */
-	@PostMapping("sharding-get")
-	public ResponseModel getSharding(String walletId, String randomStr, String signatureHex) {
+	@PostMapping("sharding-verify")
+	public ResponseModel shardingVerify(String walletId, String randomStr, String signatureHex) {
 		Wallet wallet = this.walletMapper.selectByPrimaryKey(walletId);
 		if (wallet == null) {
 			return ResponseModel.fail602();
