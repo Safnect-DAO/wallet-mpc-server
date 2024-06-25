@@ -92,3 +92,49 @@
     成功 `{"code":200,"msg":null,"data":"1111111111111111111111111111111111111111111111"}`
     data中的数据为钱包私钥分片。
     
+### 3、摘要验证（此接口与2、验证分片实现逻辑相同，不返回私钥分片）
+
+  ```
+  path: /extensions/signature-verify
+  Method: POST
+  parameters:
+    walletId  
+    randomStr
+    signatureHex
+  ```
+
+  入参：
+  
+    walletId 钱包Id
+    
+    randomStr 用户密码签名的随机字符串 （见Safnect.js库)
+    
+    signatureHex 用户密码签名得到的16进制摘要 （见Safnect.js库)
+
+  响应：
+  
+    成功 `{"code":200,"msg":null,"data":null}`
+
+
+### 4、更新公钥
+
+  用户修改个人密码后，需要重新派生公钥，并将公钥上传至服务端更新  
+
+  ```
+  path: /extensions/pk-update
+  Method: POST
+  parameters:
+    walletId  
+    publicKey
+  ```
+
+  入参：
+  
+    walletId 钱包Id
+    
+    publicKey 用户密码生成的公钥 （见Safnect.js库)
+
+  响应：
+  
+    成功 `{"code":200,"msg":null,"data":null}`
+    
