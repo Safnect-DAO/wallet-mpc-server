@@ -171,7 +171,7 @@
   交易发送失败后记录交易信息，向服务端发送交易信息数据。  
 
   ```
-  path: /trans/success
+  path: /trans/failure
   Method: POST
   parameters:
     chain  链名称，如：Bitcoin, Runes
