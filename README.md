@@ -137,4 +137,58 @@
   响应：
   
     成功 `{"code":200,"msg":null,"data":null}`
-    
+
+### 5、交易成功
+
+  交易发送成功后记录交易信息，向服务端发送交易信息数据。  
+
+  ```
+  path: /trans/success
+  Method: POST
+  parameters:
+    chain  链名称，如：Bitcoin, Runes
+    network 网络取值：testnet | mainnet
+    sendAddress 发送地址
+    toAddress 接收地址
+    walletId  钱包id
+    tokenName Token，取值：BTC|ETH|SOL|符文ID
+    transHex 交易16进制数据，00001EADCD313832...
+    amount 转账额度
+    gasFee GasFee
+    totalAmount 总额度
+
+
+    txid 交易id（交易发送成功取得）
+  ```
+
+  响应：
+  
+    成功 `{"code":200,"msg":null,"data":null}`
+
+
+### 6、交易失败
+
+  交易发送失败后记录交易信息，向服务端发送交易信息数据。  
+
+  ```
+  path: /trans/success
+  Method: POST
+  parameters:
+    chain  链名称，如：Bitcoin, Runes
+    network 网络取值：testnet | mainnet
+    sendAddress 发送地址
+    toAddress 接收地址
+    walletId  钱包id
+    tokenName Token，取值：BTC|ETH|SOL|符文ID
+    transHex 交易16进制数据，00001EADCD313832...
+    amount 转账额度
+    gasFee GasFee
+    totalAmount 总额度
+
+
+    ex_info 异常信息（交易发送失败时返回的信息）
+  ```
+
+  响应：
+  
+    成功 `{"code":200,"msg":null,"data":null}`
