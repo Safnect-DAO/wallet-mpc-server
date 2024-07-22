@@ -192,3 +192,54 @@
   响应：
   
     成功 `{"code":200,"msg":null,"data":null}`
+
+### 7、查询实时币价
+
+  当前支持这些ethereum,bitcoin,solana,litecoin,dogecoin,conflux,arbitrum,Filecoin币的市场实时价格返回，该接口缓存5秒数据。
+
+  ```
+  path: /fetch-data/price
+  Method: GET
+  parameters:
+    chainNames 可选，token名称，多个使用“,”（英文逗号）拼接，示例值：bitcoin,solana,litecoin
+  ```
+
+  响应：
+  
+    成功 
+    ```
+    {
+        "code": 200,
+        "msg": null,
+        "data": {
+            "arbitrum": {  // ARB
+                "usd": 0.789265,
+                "usd_24h_change": 1.5101157941386123
+            },
+            "bitcoin": { // 比特币
+                "usd": 68064,
+                "usd_24h_change": 2.150894883462686
+            },
+            "dogecoin": { // 狗狗币
+                "usd": 0.140385,
+                "usd_24h_change": 7.084696337373682
+            },
+            "ethereum": {  // 这是以太的实时价格
+                "usd": 3500.92,
+                "usd_24h_change": 0.28830383613273364
+            },
+            "filecoin": { // FIL
+                "usd": 4.66,
+                "usd_24h_change": 1.2911342229613854
+            }, 
+            "litecoin": { // 莱特
+                "usd": 73.46,
+                "usd_24h_change": 0.39121018732592916
+            },
+            "solana": { // 索拉娜
+                "usd": 181.67,
+                "usd_24h_change": 5.627780654708391
+            }
+        }
+    }
+    ```
