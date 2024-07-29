@@ -243,3 +243,20 @@
         }
     }
     ```
+    
+### 8、查询ETH币余额
+
+  查询ETH币余额，接口数据缓存30秒有效期
+
+  ```
+  path: /fetch-data/eth-balance
+  Method: GET
+  parameters:
+    network 网络取值：testnet | mainnet
+    address 钱包地址
+  ```
+
+  响应：
+    {"code":200,"msg":null,"data": "4.838577283"}
+    
+    
