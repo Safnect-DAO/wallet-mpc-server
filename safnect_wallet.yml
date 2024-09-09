@@ -20,9 +20,9 @@ spring:
       min-evictable-idle-time-millis: 300000
       
   redis:
-    host: tcsyn.cn
+    host: tc1111.cn
     port: 6379
-    password: Szmuen@2022
+    password: Sz111111111
     database: 1
     jedis:
       pool:
