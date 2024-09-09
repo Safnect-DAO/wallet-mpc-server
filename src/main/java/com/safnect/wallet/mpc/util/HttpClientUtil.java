@@ -164,26 +164,21 @@ public class HttpClientUtil {
         return httpRequest(post);
     }
 
-    public static String httpGet(URI uri, Map<String, String> paramMap) throws Exception {
-        return httpGet(uri.toString(), paramMap, null);
-    }
-
-    public static String httpGet(URI uri, Map<String, String> paramMap, Integer timeOut) throws Exception {
-        return httpGet(uri.toString(), paramMap, timeOut);
-    }
-
     public static String httpGet(String uri, Map<String, String> paramMap) {
     	if (uri.startsWith("https")) {
     		trustAllHttpsCertificates();
     		HttpsURLConnection.setDefaultHostnameVerifier(hv);
     	}
-        return httpGet(uri, paramMap, 80000);
+        return httpGet(uri, paramMap, null, 80000);
     }
 
-    public static String httpGet(String uri, Map<String, String> paramMap, Integer timeOut) {
+    public static String httpGet(String uri, Map<String, String> paramMap, Header[] headers, Integer timeOut) {
         HttpGet get = new HttpGet(uri);
         if (timeOut != null) {
             get.setConfig(RequestConfig.custom().setSocketTimeout(timeOut).setConnectTimeout(timeOut).setConnectionRequestTimeout(timeOut).build());
+        }
+        if (headers != null && headers.length > 0) {
+        	get.setHeaders(headers);
         }
         try {
 	        List<BasicNameValuePair> list = map2NameValuePairList(paramMap);
