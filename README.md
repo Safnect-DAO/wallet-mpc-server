@@ -262,5 +262,54 @@
 
   响应：
     {"code":200,"msg":null,"data": "4.838577283"}
-    
-    
+
+
+### 9、获取FB-Cat20协议资产列表
+
+  获取FB链的Cat20协议下资产列表，仅返回地址中余额大于0的代币和余额的列表
+
+  ```
+  path: /fetch-data/cat20-balances
+  Method: GET
+  parameters:
+    network 网络取值：testnet | mainnet
+    address 钱包地址
+  ```
+
+  响应：
+  
+  ```
+  {
+    "code": 200,
+    "msg": null,
+    "data": [
+      {
+        "tokenId": "0005dd65d6378004c2c9b7b12206e67ec56721c5e1d1413a9dc596d1faf566f8_0", // tokenId 转账时需要的参数
+        "confirmed": "2100000", // 余额
+        "minterAddr": "bc1pe23u8zdymhk85w5apd2gv86yjelpc9h3rmll5m9n0gjlxurz2d7s0ken7z", // 转账时需要的参数
+        "tokenAddr": "bc1pataut94dx0ecdcy3cxf9k9r8v47p627jr7e5drt9z47rus7w8q6sasxvrm",  // 转账时需要的参数
+        "name": "PizzaSwap", // 代币名称
+        "symbol": "PizzaSwap", // 代币符号 
+        "decimals": 0 // 最小精度单位，可使用Math.pow函数转换余额
+      },
+      {
+        "tokenId": "59d566844f434e419bf5b21b5c601745fcaaa24482b8d68f32b2582c61a95af2_0",
+        "confirmed": "725000",
+        "minterAddr": "bc1pt6e0vse643qwzg6x06r8c42rm425avz4ymlap738530hwtj8pc0snkk0lx",
+        "tokenAddr": "bc1pesk2868wvfrq4pjwwxumjrg2x0ddauu3vs996vqkz9lpmvvt0mzqcz6yln",
+        "name": "cat20_pizza",
+        "symbol": "CAT20_PIZZA",
+        "decimals": 2
+      },
+      {
+        "tokenId": "577a614cd2c9f376c68959c594e17d6c9159116df3377c2c52abe23bc30755ae_0",
+        "confirmed": "2900000",
+        "minterAddr": "bc1ptugpm5nnm4wxgeu4ndlcvuuy5jj5wc3xch6hlqtxjy7xr6y2wjcs8espcv",
+        "tokenAddr": "bc1p7yfc8c6ruxwsplc9pg7jng9egfkam6kuufj4d0dxfjnrgvxq8wmskhlz7y",
+        "name": "BTC",
+        "symbol": "BTC",
+        "decimals": 2
+      }
+    ]
+  }
+  ```
