@@ -247,7 +247,73 @@
         }
     }
     ```
+
+### 7-1、查询实时币价V2
+
+    查询速度更快
+
+    ```
+    path: /fetch-data/v2/price
+    Method: GET
+    parameters:
+      无
+    ```
+  
+    响应：
     
+    成功 
+    ```
+    {
+      "code": 200,
+      "msg": null,
+      "data": {
+          "ethereum": {
+              "usd": 2688.15,
+              "usd_24h_change": 2.54
+          },
+          "fb": {
+              "usd": 14.04,
+              "usd_24h_change": 3.46
+          },
+          "bitcoin": {
+              "usd": 66320.3,
+              "usd_24h_change": 2.66
+          },
+          "c468e99ac3b533e503eac5ccf4f0e3362772f80cead8b7f71d802305d02f73d0_0": { // 代表token20协议的代币，对应tokenId
+              "usd": 0.5200174739671446,
+              "usd_24h_change": 0.0587369086164037
+          },
+          "45ee725c2c5993b3e4d308842d87e973bf1951f5f7a804b21e4dd964ecd12d6b_0": {
+              "usd": 1.7137035005831767,
+              "usd_24h_change": 0.1614705216208915
+          },
+          "cat": {
+              "usd": 1.7137035005831767,
+              "usd_24h_change": 0.1614705216208915
+          },
+          "cc1b4c7e844c8a7163e0fccb79a9ade20b0793a2e86647825b7c05e8002b9f6a_0": {
+              "usd": 0.04933882838896821,
+              "usd_24h_change": 0.0183191979924502
+          },
+          "a004b19b6e52aba25546360acc11e8b650c2387a975c9f48ff74a8bd5f6c32e7_0": {
+              "usd": 0.0,
+              "usd_24h_change": 0.0
+          },
+          "34475c0c600acf665737ef4c8d97bade02e9c5472bcfc0be141184e244d7daaf_0": {
+              "usd": 0.0,
+              "usd_24h_change": 1.062895868977297
+          },
+          "59d566844f434e419bf5b21b5c601745fcaaa24482b8d68f32b2582c61a95af2_0": {
+              "usd": 0.043899617972850524,
+              "usd_24h_change": 0.2239769987338117
+          },
+          "usdt": {
+              "usd": 1.0,
+              "usd_24h_change": 0.0
+          }
+      }
+    }
+    ```
 ### 8、查询ETH币余额
 
   查询ETH币余额，接口数据缓存30秒有效期
