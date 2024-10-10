@@ -379,3 +379,31 @@
     ]
   }
   ```
+
+### 10、获取钱包地址交易txid
+
+  获取钱包地址最近50笔交易的txid列表
+
+  ```
+  path: /trans/txids?address={address}
+  Method: GET
+  parameters:
+    address 钱包地址
+  ```
+
+  响应：
+
+  ```
+  {
+    "code": 200,
+    "msg": null,
+    "data": [
+      "72e823c25d2b9993ba1c2166320c889c86d52c2a2923d351d41938cbcfdc62eb",
+      "05d02e0836a914590d5d84ba3c0bfcbd210670829afb8e0f1a2b4ad45edbeb59",
+      "f9249682916997772daf41b496041bd8048f3e59d8f6dd41c6e2554afb653e4f",
+      "3fc9f5a150bbce5ff0c3e2f7b43af4bc6f697a0cb51613f6ca51df683ac74c3b",
+      ...
+    ]
+  }
+  ```
+  
