@@ -406,4 +406,27 @@
     ]
   }
   ```
+
+### 11、上报Psbt签名记录
+
+  Dapp通过Provider服务发起signPsbt请求时，插件将数据发送至服务器记录，用于统计Dapp使用Safnect钱包的次数。
+
+  ```
+  path: /report/psbt
+  Method: POST
+  parameters:
+    address - String 钱包地址
+    chain - String 公链名称
+    psbtHex - String psbt数据（16进制字符串）
+  ```
+
+  Response：
+
+  ```
+  {
+    "code": 200,
+    "msg": null,
+    "data": null
+  }
+  ```
   
