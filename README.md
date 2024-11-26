@@ -418,6 +418,7 @@
     address - String 钱包地址
     chain - String 公链名称
     psbtHex - String psbt数据（16进制字符串）
+    sourceDomain - String 来源域名，如（ordbit.com，unisat.io）
   ```
 
   Response：
