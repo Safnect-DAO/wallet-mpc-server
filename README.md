@@ -430,4 +430,50 @@
     "data": null
   }
   ```
-  
+### 12、推特活动
+
+  #### 12.1 检查是否可参与
+
+  检查钱包地址是否已参考活动（已经提交了贴子链接）防止一个钱包地址多次参与活动。
+
+  ```
+  path: /marketing-activity/address-check
+  Method: POST
+  parameters:
+    address - String 钱包地址
+  ```
+
+  Response：
+
+  ```
+  {
+    "code": 200,
+    "msg": null,
+    "data": true // true表示可以参加（还未提交过），false表示已经参加过
+  }
+  ```
+
+  #### 12.2 检查贴子地址
+
+  检查x贴子的地址格式是否正确，贴子是否已经被使用过（已提交到系统）。
+
+  ```
+  path: /marketing-activity/post-check
+  Method: POST
+  parameters:
+    postLink - String 贴子链接
+  ```
+
+  Response：
+
+  ```
+  {
+    "code": 200, // 200表示检查通过（有效的贴子链接），610 表示链接格式错误（不是推特的贴子链接），612 表示贴子链接已经提交到系统了（重复提交）
+    "msg": null,
+    "data": null
+  }
+  ```
+
+  #### 12.3 提交贴子链接
+
+
