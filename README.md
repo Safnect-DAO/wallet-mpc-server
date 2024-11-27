@@ -6,7 +6,7 @@
 
 ## Endpoint
 
-  地址：http://35.240.161.157
+  地址：https://server.safnect.com  http://35.240.161.157（备用）
 
 
 ## 协议
