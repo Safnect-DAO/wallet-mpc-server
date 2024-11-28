@@ -476,4 +476,23 @@
 
   #### 12.3 提交贴子链接
 
+  提交贴子链接，接口也会对钱包地址与贴子链接再次进行检查，但不对贴子内容检查，提交后
 
+  ```
+  path: /marketing-activity/post-submit
+  Method: POST
+  parameters:
+    postLink - String 贴子链接
+    walletId - String 钱包id
+    address - String 钱包地址
+  ```
+
+  Response：
+
+  ```
+  {
+    "code": 200, // 200表示检查通过（有效的贴子链接），610 表示链接格式错误（不是推特的贴子链接），611 表示钱包地址已经参考过活动 612 表示贴子链接已经提交到系统了（重复提交）
+    "msg": null,
+    "data": null
+  }
+  ```
