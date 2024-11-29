@@ -517,6 +517,7 @@
     "data": {
         "beginDatetime": 1732723200000, // 开始时间 （UTC 0时区）
         "started": true, // 活动已经启动
+        "img": "https://pbs.twimg.com/media/GdfA0Apa8AARrph?format=jpg&name=small", // 活动图片
         "endDatetime": 1733155200000 // 结束时间 （UTC 0时区）
     }
   }
