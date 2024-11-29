@@ -496,3 +496,28 @@
     "data": null
   }
   ```
+
+  #### 12.4 获取活动信息
+
+  获取活动时间、是否已经开始。
+
+  ```
+  path: /marketing-activity/2412
+  Method: GET
+  parameters:
+    无
+  ```
+
+  Response：
+
+  ```
+  {
+    "code": 200, 
+    "msg": null,
+    "data": {
+        "beginDatetime": 1732723200000, // 开始时间 （UTC 0时区）
+        "started": true, // 活动已经启动
+        "endDatetime": 1733155200000 // 结束时间 （UTC 0时区）
+    }
+  }
+  ```
