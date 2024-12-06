@@ -523,3 +523,71 @@
     }
   }
   ```
+
+### 13 HD钱包接口
+
+钱包接口均为辅助型运营数据，接口调用失败时不应影响钱包正常使用，App接入接口应该坚守的原则逻辑。
+
+#### 13.1 钱包注册（创建钱包）
+
+用户创建钱包走完一系列流程（刷卡片，设置密码）操作完成后调用本接口记录钱包属性状态的数据。
+
+```
+  path: /mobile-app/signup
+  Method: POST
+  parameters:
+    walletId - String 钱包ID（通过Safnect.min.js生成）
+    publicKey - String 用户密码的PublicKey[Option]
+    walletAlias - String 钱包名称[Option]
+    cardSn1 - String 卡片1序号
+    cardSn2 - String 卡片2序号
+    accountAlias - String 子账户名称[Option]
+  ```
+
+  Response：
+
+  ```
+  {
+    "code": 200, 
+    "msg": null,
+    "data": null
+  }
+  ```
+
+#### 13.2 添加子账户（创建账户）
+
+用户在钱包中创建新的子账户时调用该接口记录用户的子账户编号，在恢复钱包时可以从服务器取子账户编号恢复所有的子账户。
+
+```
+  path: /mobile-app/account-add
+  Method: POST
+  parameters:
+    walletId - String 钱包ID
+    accountIndex - Number 子账户索引编号（从0开始增长，每创建一个子账户增长步长为1，需在本地缓存，子账户编号是获取子账户多链钱包地址、私钥的关键参数）
+    alias - String 子账户名称[Option]
+  ```
+
+  Response：
+
+  ```
+  成功：
+  {
+    "code": 200,
+    "msg": null,
+    "data": null
+  }
+
+  失败1：
+  {
+    "code": 601, // 必填参数为空
+    "msg": "Missing parameters",
+    "data": null
+  }
+
+  失败2：
+  {
+    "code": 603, // 子账户已经存在
+    "msg": "Already exists",
+    "data": null
+  }
+  ```
