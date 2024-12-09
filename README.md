@@ -520,7 +520,7 @@
         "img": "https://pbs.twimg.com/media/GdfA0Apa8AARrph?format=jpg&name=small", // 活动图片
         "sourceLink": "https://x.com/safnect",  // 活动教程中推文链接
         "endDatetime": 1733155200000, // 结束时间 （UTC 0时区）,
-        "winner": true // 中奖者，true 是，false 否。（传递了address参数时返回地址是否是中奖者）
+        "winner": true // 中奖者，true 是，false 否，null 未参与活动。（传递了address参数时返回地址是否是中奖者）
     }
   }
   ```
