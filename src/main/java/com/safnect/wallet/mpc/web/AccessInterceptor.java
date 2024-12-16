@@ -22,13 +22,14 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.safnect.wallet.mpc.dto.ResponseModel;
 import com.safnect.wallet.mpc.mapper.AccessLogMapper;
 import com.safnect.wallet.mpc.model.AccessLog;
+import com.safnect.wallet.mpc.util.Constants;
 import com.safnect.wallet.mpc.util.JsonUtil;
 import com.safnect.wallet.mpc.util.TextUtil;
 
 @Component
 public class AccessInterceptor implements HandlerInterceptor {
 	
-	static final String KEY = "s2fnect";
+	static final String KEY = "";
 	
 	@Autowired
 	AccessLogMapper accessLogMapper;
@@ -43,6 +44,7 @@ public class AccessInterceptor implements HandlerInterceptor {
 			this.writeMessage(response, ResponseModel.fail601());
 			return false;
 		}
+		
 		
 		String encryptText = this.getEncryptText(request);
 		if (!StringUtils.equals(token, encryptText)) {
@@ -59,10 +61,45 @@ public class AccessInterceptor implements HandlerInterceptor {
 		if (StringUtils.isNotBlank(walletId) && !this.redisTemplate.hasKey(walletId)) {
 			this.redisTemplate.opsForValue().set(walletId, "on", 5, TimeUnit.MINUTES);
 			// 获取代理IP（如果存在）
-	        String ipAddress = this.getIpAddress(request);
-			this.accessLogMapper.insertSelective(new AccessLog(TextUtil.getUUID2(), walletId, ipAddress, new Date()));
+	        String ipAddress = getIpAddress(request);
+	        String sourceApp = detectClientType(request);
+	        if (!StringUtils.equals(sourceApp, "Unknown")) {
+	        	this.accessLogMapper.insertSelective(new AccessLog(TextUtil.getUUID2(), walletId, ipAddress, new Date(), sourceApp));
+	        }
 		}
 		return true;
+    }
+	
+	public static String detectClientType(HttpServletRequest request) {
+        String userAgent = request.getHeader("User-Agent");
+
+        // 检查是否是 Chrome 浏览器
+        if (userAgent.contains("Chrome/") && !userAgent.contains("CriOS/")) {
+            return Constants.SOURCE_APP_EXTENSION;
+        }
+
+        // 检查是否是 Chrome for iOS
+        if (userAgent.contains("CriOS/")) {
+            return Constants.SOURCE_APP_EXTENSION;
+        }
+
+        // 检查是否是 Android 设备
+        if (userAgent.contains("Android")) {
+            return Constants.SOURCE_APP_ANDROID;
+        }
+
+        // 检查是否是 iOS 设备
+        if (userAgent.contains("iPhone") || userAgent.contains("iPad") || userAgent.contains("iPod")) {
+            return Constants.SOURCE_APP_IOS;
+        }
+
+        // 检查是否是桌面浏览器
+        if (userAgent.contains("Windows") || userAgent.contains("Macintosh") || userAgent.contains("X11")) {
+        	return Constants.SOURCE_APP_EXTENSION;
+        }
+
+        // 如果无法识别，返回未知
+        return "Unknown";
     }
 
 	private String getEncryptText(HttpServletRequest request) {
@@ -91,7 +128,7 @@ public class AccessInterceptor implements HandlerInterceptor {
 		out.close();
 	}
 
-	private String getIpAddress(HttpServletRequest request) {
+	private static String getIpAddress(HttpServletRequest request) {
 		String ipAddress = request.getHeader("X-Forwarded-For");
 		
 		if (ipAddress == null) {
