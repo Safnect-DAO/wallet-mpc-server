@@ -15,20 +15,29 @@ public class AccessLog {
 		super();
 	}
 
-	public AccessLog(String id, String walletId, String ipAddress, Date createDatetime) {
+	public AccessLog(String id, String walletId, String ipAddress, Date createDatetime, String sourceApp) {
 		super();
 		this.id = id;
 		this.walletId = walletId;
 		this.ipAddress = ipAddress;
 		this.createDatetime = createDatetime;
+		this.sourceApp = sourceApp;
 	}
 
 	@Id
 	String id;
 	
-	String walletId, ipAddress;
-	
+	String walletId, ipAddress, sourceApp;
+
 	Date createDatetime;
+	
+	public String getSourceApp() {
+		return sourceApp;
+	}
+
+	public void setSourceApp(String sourceApp) {
+		this.sourceApp = sourceApp;
+	}
 
 	public String getId() {
 		return id;
