@@ -592,3 +592,46 @@
     "data": null
   }
   ```
+### 14 OKlink通用API接口
+
+封装了OKlinkAPI接口，仅限查询数据的接口。
+
+```
+path: /bca/get
+Method: GET
+parameters:
+  path - String OKLinkAPI路径，示例值：address/address-summary，transaction/token-transaction-detail
+  ...
+  其他参数参考oklink文档接口的参数
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200, 
+  "msg": null,
+  "data": [
+    ... datas
+  ]
+}
+```
+
+```
+fail 500:
+{
+  "code": 500, // 服务器运行时异常
+  "msg": "error message",
+  "data": null
+}
+```
+
+```
+fail 701:
+{
+  "code": 701, // API返回的异常
+  "msg": "error message",
+  "data": null
+}
+```
