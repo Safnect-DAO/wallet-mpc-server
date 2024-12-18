@@ -594,7 +594,7 @@
   ```
 ### 14 OKlink通用API接口
 
-封装了OKlinkAPI接口，仅限查询数据的接口。
+封装了OKlinkAPI查询的通用接口，
 
 ```
 path: /bca/get
@@ -632,6 +632,95 @@ fail 701:
 {
   "code": 701, // API返回的异常
   "msg": "error message",
+  "data": null
+}
+```
+
+### 15 NFT合集接口
+
+#### 15.1 添加合集
+
+添加合集信息
+
+```
+path: /coll-info/add
+Method: POST
+parameters:
+  walletId - String 钱包id
+  chain - String 链
+  network - String 网络（mainnet | testnet）
+  name - String 合集名称
+  symbol - String 合集符号
+  description - String 合集描述
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200, 
+  "msg": null,
+  "data": [
+    ... datas
+  ]
+}
+```
+
+#### 15.2 获取全集列表
+
+获取合集列表，仅返回未铸造的合集信息
+
+```
+path: /coll-info/get
+Method: GET
+parameters:
+  walletId - String 钱包id
+  chain - String 链
+  network - String 网络（mainnet | testnet）
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200, 
+  "msg": null,
+  "data": [
+      {
+          "id": "A61C0ATSPJ8SY0", // 合集ID
+          "chain": "FB",
+          "network": "mainnet",
+          "name": "qqdd",
+          "symbol": "qqddsym",
+          "description": "qqdddescription",
+          "walletId": "111223213123",
+          "createDatetime": 1734451896000,
+          "ismint": false
+      }
+  ]
+}
+```
+
+#### 15.3 铸造更新
+
+铸造后更新合集铸造状态
+
+```
+path: /coll-info/mint-update
+Method: POST
+parameters:
+  id - String 合集ID
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200, 
+  "msg": null,
   "data": null
 }
 ```
