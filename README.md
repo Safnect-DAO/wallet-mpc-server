@@ -543,6 +543,7 @@
     cardSn1 - String 卡片1序号
     cardSn2 - String 卡片2序号
     accountAlias - String 子账户名称[Option]
+    addressJson - String 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
   ```
 
   Response：
@@ -667,7 +668,7 @@ success:
 }
 ```
 
-#### 15.2 获取全集列表
+#### 15.2 获取合集列表
 
 获取合集列表，仅返回未铸造的合集信息
 
