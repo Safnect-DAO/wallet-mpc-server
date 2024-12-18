@@ -67,6 +67,32 @@
   
     成功 `{"code":200,"msg":null,"data":null}`
 
+### 1-1、钱包登记V2
+
+  ```
+  path: /extensions/v2/signup
+  Method: POST
+  parameters:
+    walletId - String 钱包ID
+    publicKey - String 公钥
+    pkSharding - String 分片
+    addressJson - String
+  ```
+
+  入参：
+  
+    walletId 钱包Id
+    
+    publicKey 用户密码生成的公钥 （见Safnect.js库)
+    
+    pkSharding 私钥（区块链的私钥）分片
+    
+    addressJson 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
+
+  响应：
+  
+    成功 `{"code":200,"msg":null,"data":null}`
+
   
 ### 2、验证分片（获取私钥分片）
 
