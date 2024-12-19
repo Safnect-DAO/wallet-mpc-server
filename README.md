@@ -694,7 +694,7 @@ success:
 
 #### 15.2 获取合集列表
 
-获取合集列表，仅返回未铸造的合集信息
+获取合集列表，返回所有合集信息
 
 ```
 path: /coll-info/get
@@ -722,6 +722,7 @@ success:
           "description": "qqdddescription",
           "walletId": "111223213123",
           "createDatetime": 1734451896000,
+          "bcCollId": "9244a89acbffa854ed11c87d8ade2aec969c91ce7efe98491afc3410ba6fe17a_0", // 链上的集合ID
           "ismint": false
       }
   ]
@@ -737,6 +738,7 @@ path: /coll-info/mint-update
 Method: POST
 parameters:
   id - String 合集ID
+  bcCollId - String 链上的集合ID
 ```
 
 Response：
