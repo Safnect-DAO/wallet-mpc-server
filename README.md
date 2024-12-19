@@ -688,9 +688,7 @@ success:
 {
   "code": 200, 
   "msg": null,
-  "data": [
-    ... datas
-  ]
+  "data": "A62OEMYPRBNO4J" // 合集ID
 }
 ```
 
