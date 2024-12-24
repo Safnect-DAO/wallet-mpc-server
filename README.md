@@ -751,3 +751,62 @@ success:
   "data": null
 }
 ```
+
+### 16 基础数据
+
+#### 16.1 Token数据
+
+根据网络和公链查询所有Token代币数据
+
+```
+path: /token-info/all
+Method: POST
+parameters:
+  network - String 取值 testnet | mainnet
+  chainName - String 公链名称（可选）
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200, 
+  "msg": null,
+  "data": {
+    "ETH": { // 公链标识
+      "AGLD": {
+        "contractAddress": "0x32353A6C91143bfd6C7d363B546e62a9A2489A20", // Token合约地址
+        "fullName": "Adventure Gold", // Token全名
+        "symbol": "AGLD", // 符号
+        "img": "/token/images/lootnft_32.png", // Token符号
+        "network": "mainnet", // 网络
+        "totalSupply": "77,310,001", // 总供应
+        "chainName": "ETH", // 链名称
+        "decimals": 18, // 精度（最小单位）
+        "sno": 255,
+        "chain": 1, // 链ID
+        "invisable": false,
+        "amount": null,
+        "priceUsd": null,
+        "valueUsd": null
+      },
+      "LVM": {
+        "contractAddress": "0x5BB15141bb6DeF6d2BafeED8ff84BF889c0C573B",
+        "fullName": "LakeView",
+        "symbol": "LVM",
+        "img": "/token/images/lakeview_32.png",
+        "network": "mainnet",
+        "totalSupply": "1,000,000,000",
+        "chainName": "ETH",
+        "decimals": 18,
+        "sno": 1102,
+        "chain": 1,
+        "invisable": false,
+        "amount": null,
+        "priceUsd": null,
+        "valueUsd": null
+      }
+   }
+}
+```
