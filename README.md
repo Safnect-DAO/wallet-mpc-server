@@ -679,6 +679,7 @@ parameters:
   name - String 合集名称
   symbol - String 合集符号
   description - String 合集描述
+  address - String 钱包地址
 ```
 
 Response：
@@ -700,7 +701,7 @@ success:
 path: /coll-info/get
 Method: GET
 parameters:
-  walletId - String 钱包id
+  address - String 钱包地址
   chain - String 链
   network - String 网络（mainnet | testnet）
 ```
