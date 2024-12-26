@@ -811,3 +811,68 @@ success:
    }
 }
 ```
+
+### 17 获取历史交易记录
+
+获取钱包的历史交易记录，按时间由近至远排列，支持多个钱包地址查询，可根据钱包地址、Network（testnet | mainnet）、chain（Bitcoin，Fractal Bitcoin，Ethereum...），token合约地址分页查询。
+
+```
+path: /trans/get
+Method: GET
+parameters:
+  network - String 取值 testnet | mainnet
+  addresses - String 钱包地址（多个以,分隔）
+  chain - String 链名称（Bitcoin，Fractal Bitcoin，Ethereum...）【可选】
+  contractAddress - String Token合约地址【可选】
+  start - Number 分页开始记录数，默认值0【可选】
+  limit - Number 分页每页记录行数，默认值20【可选】
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200, 
+  "msg": null,
+  "data": [
+    {
+      "id": "A66O4IZ0LI1BBG",
+      "chain": "Fractal Bitcoin", // 链名称 
+      "network": "mainnet", // 网络
+      "sendAddress": "bc1px8vatydhg6e6lrs6yz7rcpqx4r4k335vskkmjrd85kz4s9l5547sn42fff", // 发送方地址
+      "toAddress": "bc1pzd3qdryjwcpx5sd5a8msf6xaskq0sedc6ud8tl0ruqdmwd7kqmwsadwdh4", // 接收方地址
+      "walletId": "S193fd7f58b2-21909809", // 钱包ID
+      "tokenName": "CAT-721:Qddd23",  // Token名称
+      "transHex": "1496d82191cfa3477e591f8200e16c42dd0ea61d439f53c3451f323ffce8e57c_0:0",
+      "amount": "5", // 转账额
+      "gasFee": "2476916", // 网络费
+      "totalAmount": "-2477249", // 总额
+      "contractAddress": null, // 合约地址
+      "sendTime": 1735096708000, // 发送时间
+      "successed": true, // 发送成功
+      "txid": "0xe21870f116e49ef6a2688578357f42b5b66976b6ffcb9111551049641ea3b6e1", // 链上交易Id
+      "direction": 0, // 流水类型，1：转入，0：转出
+      "confirmed": 1 // 交易是否已确认，1：是，0：否
+    },
+    {
+      "id": "A662I3K3XP4DLI",
+      "chain": "Fractal Bitcoin",
+      "network": "mainnet",
+      "sendAddress": "bc1px8vatydhg6e6lrs6yz7rcpqx4r4k335vskkmjrd85kz4s9l5547sn42fff",
+      "toAddress": "bc1pzd3qdryjwcpx5sd5a8msf6xaskq0sedc6ud8tl0ruqdmwd7kqmwsadwdh4",
+      "walletId": "S19045e1a9ed-15438365",
+      "tokenName": "CAT-721:EECC",
+      "transHex": "21ba7d6838d5c45c54645fcb5817ef8eccca540ca18e50614e217397d0aa9fc9_0:0",
+      "amount": "2",
+      "gasFee": "127376",
+      "totalAmount": "-127709",
+      "contractAddress": null,
+      "sendTime": 1735017650000,
+      "successed": true,
+      "txid": "0xe21870f116e49ef6a2688578357f42b5b66976b6ffcb9111551049641ea3b6e1",
+      "direction": 0,
+      "confirmed": 0 
+    }
+  ]
+}
