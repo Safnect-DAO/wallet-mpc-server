@@ -676,9 +676,9 @@ parameters:
   walletId - String 钱包id
   chain - String 链
   network - String 网络（mainnet | testnet）
-  name - String 合集名称
-  symbol - String 合集符号
-  description - String 合集描述
+  name - String 合集名称（长度限制100个字符）
+  symbol - String 合集符号（长度限制10个字符）
+  description - String 合集描述（长度限制10个字符）
   address - String 钱包地址
 ```
 
@@ -691,7 +691,15 @@ success:
   "msg": null,
   "data": "A62OEMYPRBNO4J" // 合集ID
 }
+
+fail:
+{
+  "code": 602,  // 601必填参数为空，602字符长度超限
+  "msg": null,
+  "data": null
+}
 ```
+
 
 #### 15.2 获取合集列表
 
