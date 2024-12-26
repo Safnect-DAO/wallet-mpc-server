@@ -678,7 +678,7 @@ parameters:
   network - String 网络（mainnet | testnet）
   name - String 合集名称（长度限制100个字符）
   symbol - String 合集符号（长度限制10个字符）
-  description - String 合集描述（长度限制10个字符）
+  description - String 合集描述（长度限制1000个字符）
   address - String 钱包地址
 ```
 
