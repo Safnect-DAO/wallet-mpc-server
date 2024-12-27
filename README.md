@@ -784,7 +784,7 @@ success:
   "msg": null,
   "data": {
     "ETH": { // 公链标识
-      "AGLD": {
+      "AGLD": { // 代币Symbol
         "contractAddress": "0x32353A6C91143bfd6C7d363B546e62a9A2489A20", // Token合约地址
         "fullName": "Adventure Gold", // Token全名
         "symbol": "AGLD", // 符号
