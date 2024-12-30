@@ -182,7 +182,7 @@
     amount 转账额度
     gasFee GasFee
     totalAmount 总额度
-
+    contractAddress token合约地址
 
     txid 交易id（交易发送成功取得）
   ```
@@ -210,7 +210,7 @@
     amount 转账额度
     gasFee GasFee
     totalAmount 总额度
-
+    contractAddress token合约地址
 
     exInfo 异常信息（交易发送失败时返回的信息）
   ```
