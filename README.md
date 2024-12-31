@@ -568,6 +568,7 @@
     walletAlias - String 钱包名称[Option]
     cardSn1 - String 卡片1序号
     cardSn2 - String 卡片2序号
+    cardSn3 - String 卡片3序号
     accountAlias - String 子账户名称[Option]
     addressJson - String 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
   ```
