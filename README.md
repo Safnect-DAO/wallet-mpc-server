@@ -885,3 +885,29 @@ success:
     }
   ]
 }
+```
+
+### 18 上报钱包地址
+
+在打开App、首页刷新、打开历史交易记录页面时，调用次接口上报钱包地址，服务器根据当前地址抓取链上的交易记录。
+
+```
+path: /report/address
+Method: POST
+parameters:
+  network - String 取值 testnet | mainnet
+  walletId - String 钱包ID
+  accountIndex - Number 子账户号
+  addressJson - String 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200, 
+  "msg": null,
+  "data": null
+}
+```
