@@ -911,3 +911,62 @@ success:
   "data": null
 }
 ```
+
+### 19 获取币列表
+
+获取币列表数据，加载主界面币种列表数据。
+
+```
+path: /bca/coins
+Method: GET
+parameters:
+  network - String 取值 testnet | mainnet
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200,
+  "msg": null,
+  "data": [
+    {
+      "id": "A6EH37MW5ZE29O",
+      "symbol": "BTC", // 币符号
+      "icon": "https://storage.googleapis.com/safnect/icons/btc.png",  // 图标
+      "network": "mainnet", // 网络
+      "sno": 1, // 序号（列表已按正序排列）
+      "chainId": 0,
+      "visible": true 
+    },
+    {
+      "id": "A6EH37MWMKQRK4",
+      "symbol": "ETH",
+      "icon": "https://storage.googleapis.com/safnect/icons/eth.png",
+      "network": "mainnet",
+      "sno": 2,
+      "chainId": 1,
+      "visible": true
+    },
+    {
+      "id": "A6EH37MWMKRUU0",
+      "symbol": "FB",
+      "icon": "https://storage.googleapis.com/safnect/icons/fb.png",
+      "network": "mainnet",
+      "sno": 5,
+      "chainId": 70000061,
+      "visible": true
+    },
+    {
+      "id": "A6EH37MWMKSVHG",
+      "symbol": "BELL",
+      "icon": "https://storage.googleapis.com/safnect/icons/bells.png",
+      "network": "mainnet",
+      "sno": 9,
+      "chainId": null,
+      "visible": true
+    }
+  ]
+}
+```
