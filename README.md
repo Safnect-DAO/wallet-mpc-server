@@ -221,7 +221,7 @@
 
 ### 7、查询实时币价
 
-  当前支持这些ethereum,bitcoin,solana,litecoin,dogecoin,conflux,arbitrum,Filecoin币的市场实时价格返回，该接口缓存5秒数据。
+  该接口缓存5秒数据。
 
   原生币和代币匹配规则，用币种列表的symbol转小写匹配。
 
