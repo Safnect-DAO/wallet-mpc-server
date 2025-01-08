@@ -77,6 +77,7 @@
     publicKey - String 公钥
     pkSharding - String 分片
     addressJson - String
+    shardType - Number 分片类型，1：旧的，2：新版助记词，3：新版私钥
   ```
 
   入参：
