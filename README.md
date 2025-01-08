@@ -90,6 +90,8 @@
     
     addressJson 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
 
+    shardType 分片类型，1：旧的，2：新版助记词，3：新版私钥
+
   响应：
   
     成功 `{"code":200,"msg":null,"data":null}`
