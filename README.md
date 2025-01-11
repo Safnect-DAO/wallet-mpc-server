@@ -43,7 +43,7 @@
   
 ## API清单
 
-### 1、钱包登记
+### 1、钱包登记（废弃）
 
   ```
   path: /extensions/signup
@@ -67,35 +67,91 @@
   
     成功 `{"code":200,"msg":null,"data":null}`
 
-### 1-1、钱包登记V2
+### 账户管理
 
-  ```
-  path: /extensions/v2/signup
-  Method: POST
-  parameters:
-    walletId - String 钱包ID
-    publicKey - String 公钥
-    pkSharding - String 分片
-    addressJson - String
-    shardType - Number 分片类型，1：旧的，2：新版助记词，3：新版私钥
-  ```
+#### 钱包登记V2
 
-  入参：
-  
-    walletId 钱包Id
-    
-    publicKey 用户密码生成的公钥 （见Safnect.js库)
-    
-    pkSharding 私钥（区块链的私钥）分片
-    
-    addressJson 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
+```
+path: /extensions/v2/signup
+Method: POST
+parameters:
+  walletId - String 钱包ID
+  publicKey - String 公钥
+  pkSharding - String 分片
+  addressJson - String 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
+  shardType - Number 分片类型，1：旧的，2：新版助记词，3：新版私钥
+  alias - String 钱包别名（没有传此参数截取walletId后X位）
+```
 
-    shardType 分片类型，1：旧的，2：新版助记词，3：新版私钥
+响应：
 
-  响应：
-  
-    成功 `{"code":200,"msg":null,"data":null}`
+  成功 `{"code":200,"msg":null,"data":null}`
 
+#### 更新钱包
+
+```
+path: /wallet/update
+Method: POST
+parameters:
+  walletId - String 钱包ID
+  alias - String 钱包名称
+```
+
+响应：
+
+  成功 `{"code":200,"msg":null,"data":null}`
+
+#### 更新子账户
+
+```
+path: /wallet/account-update
+Method: POST
+parameters:
+  walletId - String 钱包ID
+  alias - String 子账户名称
+  accountIndex - Number 子账户索引
+```
+
+响应：
+
+  成功 `{"code":200,"msg":null,"data":null}`
+
+#### 获取钱包
+
+```
+path: /wallet/get
+Method: GET
+parameters:
+  walletId - String 钱包ID
+```
+
+响应：
+
+```
+{
+    "code": 200,
+    "msg": null,
+    "data": {
+        "walletId": "d11",
+        "publicKey": null,
+        "pkSharding": null,
+        "sourceApp": "E",
+        "alias": "Areseiqq", // 钱包名称
+        "accountIndex": 0,
+        "shardType": 2,
+        "type": 1,
+        "createDatetime": 1736565190000,
+        "waList": [
+            {
+                "walletId": "d11",
+                "accountIndex": 0, // 账户索引
+                "alias": "Aresei Account", // 子账户名称
+                "createDatetime": 1736565190000
+            }
+        ]
+    }
+}
+```
   
 ### 2、验证分片（获取私钥分片）
 
