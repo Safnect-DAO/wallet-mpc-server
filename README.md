@@ -69,7 +69,7 @@
 
 ### 账户管理
 
-#### 钱包登记V2
+#### 钱包登记V2 （插件）
 
 ```
 path: /extensions/v2/signup
@@ -86,6 +86,34 @@ parameters:
 响应：
 
   成功 `{"code":200,"msg":null,"data":null}`
+
+#### 钱包登记 （App）
+
+用户创建钱包走完一系列流程（刷卡片，设置密码）操作完成后调用本接口记录钱包属性状态的数据。
+
+```
+path: /mobile-app/signup
+Method: POST
+parameters:
+  walletId - String 钱包ID（通过Safnect.min.js生成）
+  publicKey - String 用户密码的PublicKey[Option]
+  walletAlias - String 钱包名称[Option]
+  cardSn1 - String 卡片1序号
+  cardSn2 - String 卡片2序号
+  cardSn3 - String 卡片3序号 [Option]
+  accountAlias - String 子账户名称[Option]
+  addressJson - String 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
+```
+
+Response：
+
+```
+{
+  "code": 200, 
+  "msg": null,
+  "data": null
+}
+```
 
 #### 添加子账户（创建账户）
 
@@ -651,38 +679,6 @@ parameters:
         "endDatetime": 1733155200000, // 结束时间 （UTC 0时区）,
         "winner": true // 中奖者，true 是，false 否，null 未参与活动。（传递了address参数时返回地址是否是中奖者）
     }
-  }
-  ```
-
-### 13 HD钱包接口
-
-钱包接口均为辅助型运营数据，接口调用失败时不应影响钱包正常使用，App接入接口应该坚守的原则逻辑。
-
-#### 13.1 钱包信息上报
-
-用户创建钱包走完一系列流程（刷卡片，设置密码）操作完成后调用本接口记录钱包属性状态的数据。
-
-```
-  path: /mobile-app/signup
-  Method: POST
-  parameters:
-    walletId - String 钱包ID（通过Safnect.min.js生成）
-    publicKey - String 用户密码的PublicKey[Option]
-    walletAlias - String 钱包名称[Option]
-    cardSn1 - String 卡片1序号
-    cardSn2 - String 卡片2序号
-    cardSn3 - String 卡片3序号
-    accountAlias - String 子账户名称[Option]
-    addressJson - String 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
-  ```
-
-  Response：
-
-  ```
-  {
-    "code": 200, 
-    "msg": null,
-    "data": null
   }
   ```
 
