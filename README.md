@@ -87,6 +87,44 @@ parameters:
 
   成功 `{"code":200,"msg":null,"data":null}`
 
+#### 添加子账户（创建账户）
+
+用户在钱包中创建新的子账户时调用该接口记录用户的子账户编号，在恢复钱包时可以从服务器取子账户编号恢复所有的子账户。
+
+```
+path: /mobile-app/account-add
+Method: POST
+parameters:
+  walletId - String 钱包ID
+  accountIndex - Number 子账户索引编号（从0开始增长，每创建一个子账户增长步长为1，需在本地缓存，子账户编号是获取子账户多链钱包地址、私钥的关键参数）
+  alias - String 子账户名称[Option]
+```
+
+Response：
+
+```
+成功：
+{
+  "code": 200,
+  "msg": null,
+  "data": null
+}
+
+失败1：
+{
+  "code": 601, // 必填参数为空
+  "msg": "Missing parameters",
+  "data": null
+}
+
+失败2：
+{
+  "code": 603, // 子账户已经存在
+  "msg": "Already exists",
+  "data": null
+}
+```
+
 #### 更新钱包
 
 ```
@@ -648,43 +686,6 @@ parameters:
   }
   ```
 
-#### 13.2 添加子账户（创建账户）
-
-用户在钱包中创建新的子账户时调用该接口记录用户的子账户编号，在恢复钱包时可以从服务器取子账户编号恢复所有的子账户。
-
-```
-  path: /mobile-app/account-add
-  Method: POST
-  parameters:
-    walletId - String 钱包ID
-    accountIndex - Number 子账户索引编号（从0开始增长，每创建一个子账户增长步长为1，需在本地缓存，子账户编号是获取子账户多链钱包地址、私钥的关键参数）
-    alias - String 子账户名称[Option]
-  ```
-
-  Response：
-
-  ```
-  成功：
-  {
-    "code": 200,
-    "msg": null,
-    "data": null
-  }
-
-  失败1：
-  {
-    "code": 601, // 必填参数为空
-    "msg": "Missing parameters",
-    "data": null
-  }
-
-  失败2：
-  {
-    "code": 603, // 子账户已经存在
-    "msg": "Already exists",
-    "data": null
-  }
-  ```
 ### 14 OKlink通用API接口
 
 封装了OKlinkAPI查询的通用接口，
