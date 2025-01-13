@@ -309,7 +309,7 @@ parameters:
     totalAmount 总额度
     contractAddress token合约地址（代币转账时传入）[Option]
     txid 交易id（交易发送成功取得）
-    symbol 代币符号 取值：WETH | USDT | USDC | ONE | HBTC | OKT | DAI | PEPE | 
+    symbol 代币符号 取值：BTC | ETH | FB | BNB | TRX | BEL | WETH | USDT | USDC | ONE | HBTC | OKT | DAI | PEPE ...
   ```
 
   响应：
@@ -336,7 +336,7 @@ parameters:
     gasFee GasFee
     totalAmount 总额度
     contractAddress token合约地址（代币转账时传入）[Option]
-    symbol 代币符号 取值：WETH | USDT | USDC | ONE | HBTC | OKT | DAI | PEPE | 
+    symbol 代币符号 取值：BTC | ETH | FB | BNB | TRX | BEL | WETH | USDT | USDC | ONE | HBTC | OKT | DAI | PEPE ...
     exInfo 异常信息（交易发送失败时返回的信息）
   ```
 
