@@ -297,19 +297,19 @@ parameters:
   path: /trans/success
   Method: POST
   parameters:
-    chain  链名称，如：Bitcoin, Runes
+    chain  链名称，如：Bitcoin | Fractal Bitcoin | Ethereum | BSC | BELL | TRON | TON | SOLANA | LITECOIN | DOGECOIN | BCH | BSV ...
     network 网络取值：testnet | mainnet
     sendAddress 发送地址
     toAddress 接收地址
     walletId  钱包id
-    tokenName Token，取值：BTC|ETH|SOL|符文ID
+    tokenName Token名称
     transHex 交易16进制数据，00001EADCD313832...
     amount 转账额度
     gasFee GasFee
     totalAmount 总额度
     contractAddress token合约地址（代币转账时传入）[Option]
-
     txid 交易id（交易发送成功取得）
+    symbol 代币符号 取值：WETH | USDT | USDC | ONE | HBTC | OKT | DAI | PEPE | 
   ```
 
   响应：
@@ -336,7 +336,7 @@ parameters:
     gasFee GasFee
     totalAmount 总额度
     contractAddress token合约地址（代币转账时传入）[Option]
-
+    symbol 代币符号
     exInfo 异常信息（交易发送失败时返回的信息）
   ```
 
