@@ -219,7 +219,7 @@ parameters:
 }
 ```
 
-### 批量获取钱包
+#### 批量获取钱包
 
 ```
 path: /wallet/get-all
