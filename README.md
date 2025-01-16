@@ -218,6 +218,76 @@ parameters:
     }
 }
 ```
+
+### 批量获取钱包
+
+```
+path: /wallet/get-all
+Method: GET
+parameters:
+  walletIds - String 钱包ID
+```
+
+响应：
+
+```
+{
+  "code": 200,
+  "msg": null,
+  "data": [
+    {
+      "walletId": "S1945ee344b2-5181499",
+      "publicKey": null,
+      "pkSharding": null,
+      "sourceApp": "E",
+      "alias": "5181499",
+      "accountIndex": 1,
+      "shardType": 2,
+      "type": 1,
+      "createDatetime": 1736729941000,
+      "waList": [
+        {
+          "walletId": "S1945ee344b2-5181499",
+          "accountIndex": 0,
+          "alias": "Account 01",
+          "createDatetime": 1736729941000
+        },
+        {
+          "walletId": "S1945ee344b2-5181499",
+          "accountIndex": 1,
+          "alias": "Account 2",
+          "createDatetime": 1736729952000
+        }
+      ]
+    },
+    {
+      "walletId": "S1945ee87bd9-87420",
+      "publicKey": null,
+      "pkSharding": null,
+      "sourceApp": "E",
+      "alias": "87420",
+      "accountIndex": 1,
+      "shardType": 2,
+      "type": 1,
+      "createDatetime": 1736730283000,
+      "waList": [
+        {
+          "walletId": "S1945ee87bd9-87420",
+          "accountIndex": 0,
+          "alias": "Account 01",
+          "createDatetime": 1736730283000
+        },
+        {
+          "walletId": "S1945ee87bd9-87420",
+          "accountIndex": 1,
+          "alias": "Account 2",
+          "createDatetime": 1736730323000
+        }
+      ]
+    }
+  ]
+}
+```
   
 ### 2、验证分片（获取私钥分片）
 
