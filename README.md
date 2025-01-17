@@ -917,7 +917,7 @@ success:
   "msg": null,
   "data": {
     "ETH": { // 公链标识
-      "AGLD": { // 代币Symbol
+      "0x0e5f989ce525acc4ee45506af91964f7f4c9f2e9": { // 代币合约地址
         "contractAddress": "0x32353A6C91143bfd6C7d363B546e62a9A2489A20", // Token合约地址
         "fullName": "Adventure Gold", // Token全名
         "symbol": "AGLD", // 符号
@@ -933,7 +933,7 @@ success:
         "priceUsd": null,
         "valueUsd": null
       },
-      "LVM": {
+      "0x0e5f989ce525acc4ee45506af91964f7f4c9f2e9": {
         "contractAddress": "0x5BB15141bb6DeF6d2BafeED8ff84BF889c0C573B",
         "fullName": "LakeView",
         "symbol": "LVM",
