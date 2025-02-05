@@ -16,7 +16,7 @@ public class MybatisConfig {
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
-        mapperScannerConfigurer.setBasePackage("com.safnect.wallet.mpc.mapper"); 
+        mapperScannerConfigurer.setBasePackage("com.safnect.wallet.mpc.mapper");
         return mapperScannerConfigurer;
     }
 

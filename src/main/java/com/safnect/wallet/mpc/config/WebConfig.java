@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.safnect.wallet.mpc.web.AccessInterceptor;
+import com.safnect.wallet.mpc.web.TokenAuthInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -16,6 +17,9 @@ public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	AccessInterceptor accessInterceptor;
 	
+	@Autowired
+	TokenAuthInterceptor tokenAuthInterceptor;
+	
 	@Value("${app.prod}")
 	Boolean prod;
 	
@@ -23,9 +27,13 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
     	if (this.prod) {
             registry.addInterceptor(accessInterceptor)
+	            .addPathPatterns("/**");
+            
+            registry.addInterceptor(tokenAuthInterceptor)
 	            .addPathPatterns("/**") // 拦截所有路径
-	            .excludePathPatterns("/runes/rune-utxo/get") // 排除特定路径
-            	.excludePathPatterns("/fetch-data/abi-get"); // 排除特定路径
+	            .excludePathPatterns("/runes/rune-utxo/get")
+	        	.excludePathPatterns("/fetch-data/**")
+	        	.excludePathPatterns("/bca/**");
     	}
     }
 }
