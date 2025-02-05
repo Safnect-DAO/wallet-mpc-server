@@ -26,6 +26,8 @@
   最后通过Safnect.js中的base64和Sha1加密函数计算得出Token
   
   `var token = Safnect.sha1(Safnect.base64Encode('1833Aresei'));`
+
+  无参数的接口时，可附带t=当前时间戳参数。
   
   ```
   Response Content-type: application-json
