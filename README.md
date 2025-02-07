@@ -83,6 +83,7 @@ parameters:
   addressJson - String 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
   shardType - Number 分片类型，1：旧的，2：新版助记词，3：新版私钥
   alias - String 钱包别名（没有传此参数截取walletId后X位）
+  sno - Number 钱包序号[Option]
 ```
 
 响应：
@@ -105,6 +106,7 @@ parameters:
   cardSn3 - String 卡片3序号 [Option]
   accountAlias - String 子账户名称[Option]
   addressJson - String 所有的钱包地址Json格式字符串（JS库SFKey.getAllAddr(mnemonic)函数返回）
+  sno - Number 钱包序号[Option]
 ```
 
 Response：
@@ -128,6 +130,7 @@ parameters:
   walletId - String 钱包ID
   accountIndex - Number 子账户索引编号（从0开始增长，每创建一个子账户增长步长为1，需在本地缓存，子账户编号是获取子账户多链钱包地址、私钥的关键参数）
   alias - String 子账户名称[Option]
+  sno - Number 序号[Option]
 ```
 
 Response：
@@ -290,6 +293,22 @@ parameters:
   ]
 }
 ```
+
+#### 更新排序
+
+批量更新多个钱包及子账户的顺序。
+
+```
+path: /wallet/index-update
+Method: POST
+parameters:
+  jsonData - String json格式数据 （使用JSON.stringify）
+  // 示例 [{"walletId":"d12","accounts":[2,0,1]},{"walletId":"d11","accounts":[0]},{"walletId":"d13","accounts":[3,0,2,1]}]
+```
+
+响应：
+
+成功 `{"code":200,"msg":null,"data":null}`
   
 ### 2、验证分片（获取私钥分片）
 
