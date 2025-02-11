@@ -1123,3 +1123,30 @@ success:
   ]
 }
 ```
+
+### 20 获取推荐的网络费（UTXO系）
+
+获取UTXO系的推荐网络费列表（快、中、慢）
+
+```
+path: /bca/fees
+Method: GET
+parameters:
+  chain - String 取值 bitcoin | bitcoin-cash | dogecoin | litecoin 
+  network - String 取值 testnet | mainnet
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200,
+  "msg": null,
+  "data": {
+    "unit":"DocE", 
+    "fast":"0.00041166", // 快
+    "slow":"0.00034907", // 慢
+    "standard":"0.00035650" // 适中
+  }
+}
