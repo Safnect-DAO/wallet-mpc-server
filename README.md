@@ -309,6 +309,22 @@ parameters:
 响应：
 
 成功 `{"code":200,"msg":null,"data":null}`
+
+#### 删除子账户
+
+删除钱包的子账户
+
+```
+path: /wallet/account-delete
+Method: POST
+parameters:
+  walletId - String 钱包Id
+  accountIndex - Number 子账户编号
+```
+
+响应：
+
+成功 `{"code":200,"msg":null,"data":null}`
   
 ### 2、验证分片（获取私钥分片）
 
