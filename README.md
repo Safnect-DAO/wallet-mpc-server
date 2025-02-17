@@ -1148,7 +1148,7 @@ success:
 path: /bca/fees
 Method: GET
 parameters:
-  chain - String 取值 bitcoin | bitcoin-cash | dogecoin | litecoin 
+  chain - String 取值 bitcoin | bitcoin-cash | dogecoin | litecoin | bsv
   network - String 取值 testnet | mainnet
 ```
 
