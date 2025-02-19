@@ -1166,3 +1166,139 @@ success:
     "standard":"0.00035650" // 适中
   }
 }
+
+### 通用链接口
+
+通用链指兼容EVM的公链，可以通用EVM RPC接口快速接入钱包，除UTXO系、SOL、TRX、TON、SUI等特殊公链外，绝大部分公链都是通用链。
+
+#### 查询默认显示的通用公链
+
+查询默认显示的通用公链和钱包已经添加的公链。
+
+```
+path: /chain/get?walletId={walletId}
+Method: GET
+parameters:
+  walletId - String 钱包Id
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200,
+  "msg": null,
+  "data": [
+    {
+      "chainId": "10", // 公链Id，锭的唯一标识
+      "name": "OP Mainnet", // 名称
+      "rpcUrl": "https://mainnet.optimism.io", // Jsoup RPC API Endpoint
+      "symbol": "ETH", // 原生币符号
+      "explorerUrl": "https://optimistic.etherscan.io", // 浏览器地址
+      "icon": "https://static.coinall.ltd/cdn/wallet/logo/op_10000.png", // 链图标
+      "decimals": 18, // 原生币精度
+      "sno": 14, // 序号
+      "visible": true, // 是否是默认显示的通用链
+      "enabled": true
+    },
+    {
+      "chainId": "1101",
+      "name": "Polygon zkEVM",
+      "rpcUrl": "https://zkevm-rpc.com",
+      "symbol": "ETH",
+      "explorerUrl": "https://zkevm.polygonscan.com",
+      "icon": "https://static.coinall.ltd/cdn/wallet/logo/POLYGON_ETH_19300.png",
+      "decimals": 18,
+      "sno": 12,
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "chainId": "1116",
+      "name": "Core",
+      "rpcUrl": "https://rpc.coredao.org/",
+      "symbol": "CORE",
+      "explorerUrl": "https://scan.coredao.org",
+      "icon": "https://static.coinall.ltd/cdn/wallet/logo/core_18300.png",
+      "decimals": 18,
+      "sno": 10,
+      "visible": true,
+      "enabled": true
+    }
+}
+
+#### 添加非默认通用链
+
+```
+path: /chain/add
+Method: POST
+parameters:
+  walletId - String 钱包Id
+  chainId - String 链ID
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200,
+  "msg": null,
+  "data": null
+}
+```
+
+#### 移除非默认通用链
+
+```
+path: /chain/remove
+Method: POST
+parameters:
+  walletId - String 钱包Id
+  chainId - String 链ID
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200,
+  "msg": null,
+  "data": null
+}
+```
+
+#### 查询非默认未添加的通用链
+
+```
+path: /chain/unadded
+Method: GET
+parameters:
+  walletId - String 钱包Id
+  keyword - String 搜索关键词
+```
+
+Response：
+
+```
+success:
+{
+  "code": 200,
+  "msg": null,
+  "data": [
+    {
+      "chainId": "10", // 公链Id，锭的唯一标识
+      "name": "OP Mainnet", // 名称
+      "rpcUrl": "https://mainnet.optimism.io", // Jsoup RPC API Endpoint
+      "symbol": "ETH", // 原生币符号
+      "explorerUrl": "https://optimistic.etherscan.io", // 浏览器地址
+      "icon": "https://static.coinall.ltd/cdn/wallet/logo/op_10000.png", // 链图标
+      "decimals": 18, // 原生币精度
+      "sno": 14, // 序号
+      "visible": false, // 是否是默认显示的通用链
+      "enabled": true
+    }
+}
+```
