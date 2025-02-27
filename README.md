@@ -1201,7 +1201,9 @@ success:
       "decimals": 18, // 原生币精度
       "sno": 14, // 序号
       "visible": true, // 是否是默认显示的通用链
-      "enabled": true
+      "enabled": true,
+      "restApi": "https://xxx.xxx.xx", // Rest API
+      "hostedBy": "blockscout" // Rest API 的方式
     },
     {
       "chainId": "1101",
@@ -1213,7 +1215,9 @@ success:
       "decimals": 18,
       "sno": 12,
       "visible": true,
-      "enabled": true
+      "enabled": true,
+      "restApi": "https://xxx.xxx.xx",
+      "hostedBy": "blockscout"
     },
     {
       "chainId": "1116",
@@ -1225,7 +1229,9 @@ success:
       "decimals": 18,
       "sno": 10,
       "visible": true,
-      "enabled": true
+      "enabled": true,
+      "restApi": "https://xxx.xxx.xx",
+      "hostedBy": "blockscout"
     }
 }
 ```
@@ -1300,7 +1306,9 @@ success:
       "decimals": 18, // 原生币精度
       "sno": 14, // 序号
       "visible": false, // 是否是默认显示的通用链
-      "enabled": true
+      "enabled": true,
+      "restApi": "https://xxx.xxx.xx",
+      "hostedBy": "blockscout"
     }
 }
 ```
