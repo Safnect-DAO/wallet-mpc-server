@@ -404,7 +404,7 @@ parameters:
   path: /trans/success
   Method: POST
   parameters:
-    chain  链名称，如：Bitcoin | Fractal Bitcoin | Ethereum | BSC | BELL | TRON | TON | SOLANA | LITECOIN | DOGE | BCH | BSV | XRP ...
+    chain  链名称，如：Bitcoin | Fractal Bitcoin | Ethereum | BSC | BELL | TRON | TON | SOLANA | LTC | DOGE | BCH | BSV | XRP ...
     network 网络取值：testnet | mainnet
     sendAddress 发送地址
     toAddress 接收地址
@@ -432,7 +432,7 @@ parameters:
   path: /trans/failure
   Method: POST
   parameters:
-    chain 链名称，如：Bitcoin | Fractal Bitcoin | Ethereum | BSC | BELL | TRON | TON | SOLANA | LITECOIN | DOGECOIN | BCH | BSV | XRP...
+    chain 链名称，如：Bitcoin | Fractal Bitcoin | Ethereum | BSC | BELL | TRON | TON | SOLANA | LTC | DOGE | BCH | BSV | XRP...
     network 网络取值：testnet | mainnet
     sendAddress 发送地址
     toAddress 接收地址
