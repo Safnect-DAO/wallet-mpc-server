@@ -599,6 +599,7 @@ parameters:
   获取FB链的Cat20协议下资产列表，仅返回地址中余额大于0的代币和余额的列表
 
   ```
+  path: /fetch-data/cat20v2-balances  // CatV2 Token余额
   path: /fetch-data/cat20-balances
   Method: GET
   parameters:
