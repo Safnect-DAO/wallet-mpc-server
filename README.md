@@ -1169,6 +1169,66 @@ success:
 }
 ```
 
+### 币种列表
+```
+path: /chain/coin-list
+Method: GET
+parameters:
+  
+```
+
+Response:
+
+```
+{
+  "code": 200,
+  "msg": null,
+  "data": [
+    {
+      "coinId": 12903129,
+      "chainId": "APTOS",
+      "name": "Aptos",
+      "symbol": "APT",
+      "address": null,
+      "icon": "https://static.coinall.ltd/cdn/wallet/logo/APTOS.png",
+      "tokenType": "Aptos",
+      "baseCoinId": -1,
+      "defaultDisplay": true,
+      "enabled": true,
+      "sno": 1
+    },
+    {
+      "coinId": 12903130,
+      "chainId": "BCH",
+      "name": "Bitcoin Cash",
+      "symbol": "BCH",
+      "address": null,
+      "icon": "https://static.coinall.ltd/cdn/wallet/logo/BCH-20220328.png",
+      "tokenType": "Bitcoin Cash",
+      "baseCoinId": -1,
+      "defaultDisplay": true,
+      "enabled": true,
+      "sno": 1
+    },
+    {
+      "coinId": 999298,
+      "chainId": "11155111",
+      "name": "BTC",
+      "symbol": "BTC",
+      "address": "0x66194f6c999b28965e0303a84cb8b797273b6b8b",
+      "icon": "https://static.coinall.ltd/cdn/web3/currency/token/default-logo/token_custom_logo_default_B.png/type=default_350_0",
+      "tokenType": "Sepolia",
+      "baseCoinId": 21100,
+      "defaultDisplay": false,
+      "enabled": true,
+      "sno": 75
+    }
+  ]
+}
+```
+
+
+
 ### 通用链接口
 
 通用链指兼容EVM的公链，可以通用EVM RPC接口快速接入钱包，除UTXO系、SOL、TRX、TON、SUI等特殊公链外，绝大部分公链都是通用链。
@@ -1243,7 +1303,6 @@ success:
 path: /chain/add
 Method: POST
 parameters:
-  walletId - String 钱包Id
   chainId - String 链ID
 ```
 
