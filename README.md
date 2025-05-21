@@ -1116,6 +1116,8 @@ success:
 path: /chain/coin-list
 Method: GET
 parameters:
+
+chainId - String 链Id
   
 ```
 
@@ -1172,7 +1174,41 @@ Response:
 }
 ```
 
+### 流行币种列表（Popular）
+```
+path: /chain/popular-coin-list
+Method: GET
+parameters:
+  
+```
 
+Response:
+
+```
+{
+  "code": 200,
+  "msg": null,
+  "data": [
+    {
+      "chainName": "Bitcoin",
+      "symbol": "BTC",
+      "sno": 1
+    },{
+      "chainName": "Ethereum",
+      "symbol": "ETH",
+      "sno": 2
+    },{
+      "chainName": "Bianece Smart Chain",
+      "symbol": "BNB",
+      "sno": 3
+    },{
+      "chainName": "Solana",
+      "symbol": "SOL",
+      "sno": 4
+    }
+  ]
+}
+```
 
 ### 通用链接口
 
