@@ -25,13 +25,17 @@ public class MobileAppService {
 	@Autowired
 	WalletCardMapper walletCardMapper;
 	
+	@Autowired
+	WalletService walletService;
+	
 	@Transactional
-	public void saveSignup(Wallet wallet, WalletAccount wa, List<WalletCard> wc) {
+	public void saveSignup(Wallet wallet, WalletAccount wa, List<WalletCard> wc, String addressJson) {
 		boolean exists = this.walletMapper.existsWithPrimaryKey(wallet.getWalletId());
 		if (!exists) {
 			this.walletMapper.insertSelective(wallet);
 			this.walletAccountMapper.insertSelective(wa);
 			this.walletCardMapper.insertList(wc);
+			this.walletService.addWalletAddress(addressJson, wallet.getWalletId());
 		}
 	}
 	

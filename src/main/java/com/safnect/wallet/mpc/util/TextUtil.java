@@ -62,7 +62,7 @@ public class TextUtil {
 	
 	
 	public static void main(String[] args) throws Exception {
-		System.out.println(TextUtil.sha1(TextUtil.base64("tb1qddnqymwlngtmgq3qntqxjwylgj5sfmz00hapa2testnet" + "s2fnect")));
+		System.out.println(TextUtil.sha2562(TextUtil.md5("ceisdofisjodf")));
 	}
 
 	/**

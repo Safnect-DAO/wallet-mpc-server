@@ -43,7 +43,7 @@ public class RunesController {
 		String url = endPoint + network + "/runes/addresses/" + address + "/balances";
 		String result = HttpClientUtil.httpGet(url, null, getHeaders(), 5000);
 		Map<String, Object> map = JsonUtil.fromJson2Map(result);
-		return ResponseModel.sucessData(map);
+		return ResponseModel.successData(map);
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class RunesController {
 		String url = endPoint + network + "/runes/" + runeId + "/info";
 		String result = HttpClientUtil.httpGet(url, null, getHeaders(), 5000);
 		Map<String, Object> map = JsonUtil.fromJson2Map(result);
-		return ResponseModel.sucessData(map);
+		return ResponseModel.successData(map);
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class RunesController {
 		String url = endPoint + network + "/runes/addresses/" + address + "/history";
 		String result = HttpClientUtil.httpGet(url, null, getHeaders(), 5000);
 		Map<String, Object> map = JsonUtil.fromJson2Map(result);
-		return ResponseModel.sucessData(map);
+		return ResponseModel.successData(map);
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class RunesController {
 			}
 		}
 		
-		return ResponseModel.sucessData(resultList);
+		return ResponseModel.successData(resultList);
 	}
 	
 	/**
@@ -149,7 +149,7 @@ public class RunesController {
 			}
 		}
 		
-		return ResponseModel.sucessData(resultList);
+		return ResponseModel.successData(resultList);
 	}
 	
 	private Header[] getHeaders() {

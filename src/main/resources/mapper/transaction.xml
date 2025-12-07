@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.safnect.wallet.mpc.mapper.TransactionMapper">
+
+	<select id="get" resultType="Transaction">
+		select * from (
+			select t.*, 0 direction from transaction t where t.send_address in (
+				<foreach collection="addressList" item="addr" separator=",">#{addr}</foreach>
+			) 
+			and t.successed = 1 
+			<if test="network != null and !network.isEmpty()">
+				and t.network = #{network}
+			</if>
+			<if test="chain != null and !chain.isEmpty()">
+				and t.chain = #{chain}
+			</if>
+			<if test="contractAddress != null and !contractAddress.isEmpty()">
+				and t.contract_address = #{contractAddress}
+			</if>
+			union all
+			select t.*, 1 direction from transaction t where t.to_address in (
+				<foreach collection="addressList" item="addr" separator=",">#{addr}</foreach>
+			) 
+			and t.successed = 1 
+			<if test="network != null and !network.isEmpty()">
+				and t.network = #{network}
+			</if>
+			<if test="chain != null and !chain.isEmpty()">
+				and t.chain = #{chain}
+			</if>
+			<if test="contractAddress != null and !contractAddress.isEmpty()">
+				and t.contract_address = #{contractAddress}
+			</if>
+		) t1 order by t1.send_time desc limit #{start}, #{limit}
+	</select>
+	
+</mapper>

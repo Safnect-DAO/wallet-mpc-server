@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.safnect.wallet.mpc.mapper.chain.CryptoCoinMapper">
+
+	<select id="getCoinList" resultType="CryptoCoin">
+		select 
+			ifnull(ifnull(c.`name`, n.name), cc.name) chain_name, cc.* 
+		from crypto_coin cc 
+			left join chain c on cc.chain_id = c.chain_id
+			left join network n on cc.chain_id = n.code 
+		<where>
+			<if test="chainId != null and !chainId.isEmpty()">
+				and cc.chain_id = #{chainId}
+			</if>
+			and cc.enabled = 1
+		</where>
+		order by cc.sno 
+	</select>
+	
+	<select id="getCryptoCoinPopular" resultType="CryptoCoinPopular">
+		select * from crypto_coin_popular order by sno
+	</select>
+</mapper>

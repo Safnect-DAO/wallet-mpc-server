@@ -33,8 +33,8 @@ import com.safnect.wallet.mpc.util.JsonUtil;
 @SuppressWarnings({"unchecked", "rawtypes" })
 public class UnisatRunesController {
 	
-//	@Value("${app.rune-api-key}")
-	String apiKey = "937fc3e56a7d264cfd5a32ab4a757416701737f23d20470ff84fd7f4696caa80";
+	String testnetApiKey = "84fea2f58c916158001db6cafc9c91124ab0c98c45fe365785685e26e45bdb7a";
+	String mainnetApiKey = "937fc3e56a7d264cfd5a32ab4a757416701737f23d20470ff84fd7f4696caa80";
 	
 	static String endPoint = "https://open-api%s.unisat.io";
 	
@@ -56,25 +56,30 @@ public class UnisatRunesController {
 	public ResponseModel balanceList(String network, String address) {
 		String key = "runebalance_" + network + "_" + address;
 		String value = this.redisTemplate.opsForValue().get(key);
-		List<Map<String, Object>> mapList = null;
+		List<Map<String, Object>> mapList = new ArrayList<>();
 		if (StringUtils.isBlank(value)) {
 			String url = endPoint + "/v1/indexer/address/%s/runes/balance-list";
 			String networkStr = getUrlNetworkStr(network);
-			String result = HttpClientUtil.httpGet(String.format(url, networkStr, address), null, getHeaders(), 5000);
+			String result = HttpClientUtil.httpGet(String.format(url, networkStr, address), null, getHeaders(network), 5000);
 			Map<String, Object> map = JsonUtil.fromJson2Map(result);
 			Map<String, Object> dataMap = (Map<String, Object>) map.get("data");
-			mapList = (List<Map<String, Object>>) dataMap.get("detail");
-			for (Map<String, Object> balMap : mapList) {
-				balMap.put("runeId", MapUtils.getString(balMap, "runeid"));
-				balMap.remove("runeid");
-				String imagePrefix = this.getRuneImagePrefix(network);
-				balMap.put("image", imagePrefix + MapUtils.getString(balMap, "spacedRune"));
+			if (dataMap != null && !dataMap.isEmpty()) {
+				mapList = (List<Map<String, Object>>) dataMap.get("detail");
+				for (Map<String, Object> balMap : mapList) {
+					balMap.put("runeId", MapUtils.getString(balMap, "runeid"));
+					balMap.remove("runeid");
+					String imageUri = "";
+					if (StringUtils.equals(network, "mainnet")) {
+						imageUri = this.getRuneImagePrefix(network) + MapUtils.getString(balMap, "spacedRune");
+					}
+					balMap.put("image", imageUri);
+				}
+				this.redisTemplate.opsForValue().set(key, JsonUtil.toJson(mapList), 30, TimeUnit.SECONDS);
 			}
-			this.redisTemplate.opsForValue().set(key, JsonUtil.toJson(mapList), 30, TimeUnit.SECONDS);
 		} else {
 			mapList = JsonUtil.fromJson(value, new TypeReference<List<Map<String, Object>>>() {});
 		}
-		return ResponseModel.sucessData(mapList);
+		return ResponseModel.successData(mapList);
 	}
 	
 	
@@ -127,7 +132,7 @@ public class UnisatRunesController {
 			map.put("amount", MapUtils.getLong(map, "amount").toString());
 			resultList.add(map);
 		});
-		return ResponseModel.sucessData(resultList);
+		return ResponseModel.successData(resultList);
 	}
 
 	private String getUrlNetworkStr(String network) {
@@ -152,25 +157,23 @@ public class UnisatRunesController {
 		if (StringUtils.isBlank(value)) {
 			String url = endPoint + "/v1/indexer/runes/%s/info";
 			String networkStr = getUrlNetworkStr(network);
-			String result = HttpClientUtil.httpGet(String.format(url, networkStr, runeId), null, getHeaders(), 5000);
+			String result = HttpClientUtil.httpGet(String.format(url, networkStr, runeId), null, getHeaders(network), 5000);
 			Map<String, Object> map = JsonUtil.fromJson2Map(result);
 			dataMap = (Map<String, Object>) map.get("data");
 			this.redisTemplate.opsForValue().set(redisKey, JsonUtil.toJson(dataMap));
 		} else {
 			dataMap = JsonUtil.fromJson2Map(value);
 		}
-		String imagePrefix = this.getRuneImagePrefix(network);
-		dataMap.put("image", imagePrefix + MapUtils.getString(dataMap, "spacedRune"));
-		return ResponseModel.sucessData(dataMap);
+		String imageUri = "";
+		if (StringUtils.equals(network, "mainnet")) {
+			imageUri = this.getRuneImagePrefix(network) + MapUtils.getString(dataMap, "spacedRune");
+		}
+		dataMap.put("image", imageUri);
+		return ResponseModel.successData(dataMap);
 	}
 
 	private String getRuneImagePrefix(String network) {
-		String imagePrefix = null;
-		if (StringUtils.equals(network, "testnet")) {
-			imagePrefix = "https://api-t2.unisat.io/icon-v1/icon/runes/";
-		} else {
-			imagePrefix = "https://icon.unisat.io/icon/runes/";
-		}
+		String imagePrefix = "https://static.unisat.io/icon/runes/";
 		return imagePrefix;
 	}
 	
@@ -227,7 +230,7 @@ public class UnisatRunesController {
 									// 解析失败取uniSat API
 									String url = endPoint + "/v1/indexer/runes/utxo/%s/1/balance";
 									networkStr = getUrlNetworkStr(network);
-									String runeResult = HttpClientUtil.httpGet(String.format(url, networkStr, txid), null, getHeaders(), 5000);
+									String runeResult = HttpClientUtil.httpGet(String.format(url, networkStr, txid), null, getHeaders(network), 5000);
 									Map runeMap = JsonUtil.fromJson2Map(runeResult);
 									List<Map> dataList = (List<Map>) runeMap.get("data");
 									if (CollectionUtils.isNotEmpty(dataList)) {
@@ -290,7 +293,7 @@ public class UnisatRunesController {
 			e.printStackTrace();
 			resultList = getCacheBillList(key);
 		}
-		return ResponseModel.sucessData(resultList);
+		return ResponseModel.successData(resultList);
 	}
 	
 	private List<Map> getCacheBillList(String key) {
@@ -310,7 +313,7 @@ public class UnisatRunesController {
 				networkStr = "testnet/";
 			}
 			String hex = HttpClientUtil.httpGet(this.blockstream + networkStr + "api/tx/" + txid + "/hex", null);
-			Map<String, String> paramMap = new HashMap<>();
+			Map<String, Object> paramMap = new HashMap<>();
 			paramMap.put("hex", hex);
 			String str = HttpClientUtil.httpPost(signatureServer + "resolver-rune", paramMap);
 			Map<String, Object> map = JsonUtil.fromJson2Map(str);
@@ -381,7 +384,7 @@ public class UnisatRunesController {
 			resultList.add(utxoMap);
 		}
 		*/
-		return ResponseModel.sucessData(resultList);
+		return ResponseModel.successData(resultList);
 	}
 
 	private String getTransRuneId(String network, String networkStr, String txid) {
@@ -390,7 +393,7 @@ public class UnisatRunesController {
 		String txruneId = null;
 		if (StringUtils.isBlank(value)) {
 			String hex = HttpClientUtil.httpGet(this.blockstream + networkStr + "api/tx/" + txid + "/hex", null);
-			Map<String, String> paramMap = new HashMap<>();
+			Map<String, Object> paramMap = new HashMap<>();
 			paramMap.put("hex", hex);
 			String str = HttpClientUtil.httpPost(signatureServer + "resolver-rune", paramMap);
 			Map<String, Object> resultMap = JsonUtil.fromJson2Map(str);
@@ -408,7 +411,7 @@ public class UnisatRunesController {
 		Map<String, Object> runeMap = new HashMap<>();
 		if (StringUtils.isBlank(value)) {
 			String hex = HttpClientUtil.httpGet(this.blockstream + networkStr + "api/tx/" + txid + "/hex", null);
-			Map<String, String> paramMap = new HashMap<>();
+			Map<String, Object> paramMap = new HashMap<>();
 			paramMap.put("hex", hex);
 			String str = HttpClientUtil.httpPost(signatureServer + "resolver-rune", paramMap);
 			runeMap = JsonUtil.fromJson2Map(str);
@@ -420,7 +423,13 @@ public class UnisatRunesController {
 	}
 	
 	
-	private Header[] getHeaders() {
-		return new Header[] { new BasicHeader("Authorization", "Bearer " + apiKey) };
+	private Header[] getHeaders(String network) {
+		String key = null;
+		if (StringUtils.equals(network, "mainnet")) {
+			key = mainnetApiKey;
+		} else {
+			key = testnetApiKey;
+		}
+		return new Header[] { new BasicHeader("Authorization", "Bearer " + key) };
 	}
 }

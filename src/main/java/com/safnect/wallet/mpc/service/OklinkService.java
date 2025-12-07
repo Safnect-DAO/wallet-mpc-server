@@ -17,9 +17,17 @@ import com.safnect.wallet.mpc.util.JsonUtil;
 public class OklinkService {
 
 	static final Integer TIMEOUT = 5000;
+	static final Integer POST_TIMEOUT = 60000;
 	
-	public ResponseModel execute(String path, Map<String, Object> paramMap) {
+	
+	
+	public ResponseModel executeGet(String path, Map<String, Object> paramMap) {
 		String result = HttpClientUtil.httpGet(OklinkConfig.ENDPOINT + path, paramMap, getHeader(), TIMEOUT);
+		return toRm(result);
+	}
+	
+	public ResponseModel executePost(String path, Map<String, Object> paramMap) {
+		String result = HttpClientUtil.httpPost(OklinkConfig.ENDPOINT + path, JsonUtil.toJson(paramMap), POST_TIMEOUT, getHeader());
 		return toRm(result);
 	}
 	
@@ -27,11 +35,17 @@ public class OklinkService {
 		try {
 			Map<String, Object> resultMap = JsonUtil.fromJson2Map(result);
 			String code = MapUtils.getString(resultMap, "code");
+			String status = MapUtils.getString(resultMap, "status");
 			if (StringUtils.equals(code, "0")) {
 				return ResponseModel.successData(resultMap.get("data"));
+			} else if (StringUtils.equals(status, "1")) {
+				return ResponseModel.successData(resultMap.get("result"));
 			} else {
 				String msg = MapUtils.getString(resultMap, "msg");
-				return ResponseModel.fail(701, String.format("code: %s, msg: %s", code, msg));
+				if (StringUtils.isBlank(msg)) {
+					msg = MapUtils.getString(resultMap, "message");
+				}
+				return ResponseModel.fail(701, String.format("code: %s, msg: %s", StringUtils.defaultIfBlank(code, status), msg));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,5 +56,4 @@ public class OklinkService {
 	public static Header[] getHeader() {
 		return new Header[] { new BasicHeader("Ok-Access-Key", OklinkConfig.getKey()) };
 	}
-	
 }

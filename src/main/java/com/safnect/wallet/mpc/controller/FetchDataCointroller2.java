@@ -100,7 +100,7 @@ public class FetchDataCointroller2 {
 			}
 
 		}
-		return ResponseModel.sucess();
+		return ResponseModel.success();
 
 	}
 
@@ -117,7 +117,7 @@ public class FetchDataCointroller2 {
 				i--;
 			}
 		}
-		return ResponseModel.sucess();
+		return ResponseModel.success();
 	}
 
 	private static void downloadFile(String url) throws FileNotFoundException, IOException {
@@ -217,7 +217,7 @@ public class FetchDataCointroller2 {
 				System.out.println(JsonUtil.toJson(ti));
 			}
 		}
-		return ResponseModel.sucess();
+		return ResponseModel.success();
 
 	}
 

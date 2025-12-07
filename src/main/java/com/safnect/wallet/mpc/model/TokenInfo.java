@@ -5,10 +5,27 @@ import javax.persistence.Transient;
 
 public class TokenInfo {
 	
+	public TokenInfo(String contractAddress, String network, String chainName) {
+		super();
+		this.contractAddress = contractAddress;
+		this.network = network;
+		this.chainName = chainName;
+	}
+
+	public TokenInfo() {
+		super();
+	}
+
+	public TokenInfo(String network, String chainName) {
+		super();
+		this.network = network;
+		this.chainName = chainName;
+	}
+
 	@Id
 	String contractAddress;
 	
-	String fullName, symbol, img, network, totalSupply;
+	String fullName, symbol, img, network, totalSupply, chainName;
 	
 	Integer decimals, sno, chain;
 	
@@ -16,6 +33,14 @@ public class TokenInfo {
 	
 	@Transient
 	String amount, priceUsd, valueUsd;
+	
+	public String getChainName() {
+		return chainName;
+	}
+
+	public void setChainName(String chainName) {
+		this.chainName = chainName;
+	}
 
 	public String getPriceUsd() {
 		return priceUsd;

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.safnect.wallet.mpc.dto.ResponseModel;
 
@@ -16,6 +17,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         ex.printStackTrace();
         return new ResponseEntity<>(ResponseModel.fail(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<Object> handleNotFoundException(NoHandlerFoundException ex) {
+        return new ResponseEntity<>(ResponseModel.fail(404, ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 }
 

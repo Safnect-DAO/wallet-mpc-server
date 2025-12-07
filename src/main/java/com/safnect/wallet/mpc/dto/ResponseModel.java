@@ -1,5 +1,7 @@
 package com.safnect.wallet.mpc.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ResponseModel {
 	
 	int code = 200;
@@ -23,15 +25,20 @@ public class ResponseModel {
 		this.data = data;
 	}
 	
-	public static ResponseModel sucess() {
+	@JsonIgnore
+	public boolean isSuccess() {
+		return this.code == 200;
+	}
+	
+	public static ResponseModel success() {
 		return new ResponseModel(null, null);
 	}
 	
-	public static ResponseModel sucess(String msg) {
+	public static ResponseModel success(String msg) {
 		return new ResponseModel(msg, null);
 	}
 	
-	public static ResponseModel sucessData(Object data) {
+	public static ResponseModel successData(Object data) {
 		return new ResponseModel(null, data);
 	}
 	
@@ -49,6 +56,10 @@ public class ResponseModel {
 	
 	public static ResponseModel fail602() {
 		return new ResponseModel(602, "Invalid parameters", null);
+	}
+	
+	public static ResponseModel fail603() {
+		return new ResponseModel(603, "Already exists", null);
 	}
 	
 	public int getCode() {

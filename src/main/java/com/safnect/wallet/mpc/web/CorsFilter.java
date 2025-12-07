@@ -33,14 +33,13 @@ public class CorsFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-
 		String origin = httpRequest.getHeader("Origin");
 		if (origin == null) {
 			httpResponse.addHeader("Access-Control-Allow-Origin", "*");
 		} else {
 			httpResponse.addHeader("Access-Control-Allow-Origin", origin);
 		}
-		httpResponse.addHeader("Access-Control-Allow-Headers", "Origin, x-requested-with, Content-Type, Accept,X-Cookie");
+		httpResponse.addHeader("Access-Control-Allow-Headers", "Origin, x-requested-with, Content-Type, Accept,X-Cookie,token,Authorization");
 		httpResponse.addHeader("Access-Control-Allow-Credentials", "true");
 		httpResponse.addHeader("Access-Control-Allow-Methods", "GET,POST,PUT,OPTIONS,DELETE");
 		if (httpRequest.getMethod().equals("OPTIONS")) {

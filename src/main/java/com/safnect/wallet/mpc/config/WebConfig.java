@@ -32,8 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
             registry.addInterceptor(tokenAuthInterceptor)
 	            .addPathPatterns("/**") // 拦截所有路径
 	            .excludePathPatterns("/runes/rune-utxo/get")
-	        	.excludePathPatterns("/fetch-data/**")
-	        	.excludePathPatterns("/bca/**");
+	        	.excludePathPatterns("/fetch-data/**");
     	}
     }
 }

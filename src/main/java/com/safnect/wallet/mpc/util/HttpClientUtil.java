@@ -35,9 +35,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -125,7 +123,7 @@ public class HttpClientUtil {
     	return httpRequest(post);
     }
 
-    public static String httpPost(String uri, Map<String, String> paramMap) {
+    public static String httpPost(String uri, Map<String, Object> paramMap) {
     	if (uri.startsWith("https")) {
     		trustAllHttpsCertificates();
     		HttpsURLConnection.setDefaultHostnameVerifier(hv);
@@ -139,11 +137,11 @@ public class HttpClientUtil {
         return httpPost(uriAddress, paramMap, 8000000);
     }
 
-    public static String httpPost(URI uri, Map<String, String> paramMap) throws Exception {
+    public static String httpPost(URI uri, Map<String, Object> paramMap) throws Exception {
         return httpPost(uri, paramMap, null);
     }
 
-    public static String httpPost(String uri, Map<String, String> paramMap, Integer timeOut) {
+    public static String httpPost(String uri, Map<String, Object> paramMap, Integer timeOut) {
     	try {
     		return httpPost(new URI(uri), paramMap, timeOut);
 		} catch (Exception e) {
@@ -151,7 +149,7 @@ public class HttpClientUtil {
 		} 
     }
 
-    public static String httpPost(URI uri, Map<String, String> paramMap, Integer timeOut) {
+    public static String httpPost(URI uri, Map<String, Object> paramMap, Integer timeOut) {
         HttpPost post = new HttpPost(uri);
         post.setHeader("Connection", "close");
         if (timeOut != null) {
@@ -164,15 +162,23 @@ public class HttpClientUtil {
         return httpRequest(post);
     }
 
-    public static String httpGet(String uri, Map<String, String> paramMap) {
+    public static String httpGet(String uri, Map<String, Object> paramMap) {
     	if (uri.startsWith("https")) {
     		trustAllHttpsCertificates();
     		HttpsURLConnection.setDefaultHostnameVerifier(hv);
     	}
         return httpGet(uri, paramMap, null, 80000);
     }
+    
+    public static String httpGet(String uri, Map<String, Object> paramMap, Integer timeout) {
+    	if (uri.startsWith("https")) {
+    		trustAllHttpsCertificates();
+    		HttpsURLConnection.setDefaultHostnameVerifier(hv);
+    	}
+        return httpGet(uri, paramMap, null, timeout);
+    }
 
-    public static String httpGet(String uri, Map<String, String> paramMap, Header[] headers, Integer timeOut) {
+    public static String httpGet(String uri, Map<String, Object> paramMap, Header[] headers, Integer timeOut) {
         HttpGet get = new HttpGet(uri);
         if (timeOut != null) {
             get.setConfig(RequestConfig.custom().setSocketTimeout(timeOut).setConnectTimeout(timeOut).setConnectionRequestTimeout(timeOut).build());
@@ -192,7 +198,7 @@ public class HttpClientUtil {
 		}
     }
 
-    public static String httpDelete(String uri, Map<String, String> paramMap, Integer timeOut, List<Header> headerList) {
+    public static String httpDelete(String uri, Map<String, Object> paramMap, Integer timeOut, List<Header> headerList) {
         HttpDelete delete = new HttpDelete(uri);
         if (CollectionUtils.isNotEmpty(headerList)) {
         	for (Header header : headerList) {
@@ -213,7 +219,7 @@ public class HttpClientUtil {
 			throw new IllegalStateException(e);
 		}
     }
-    public static String httpGet(String uri, Map<String, String> paramMap, Integer timeOut, List<Header> headerList) {
+    public static String httpGet(String uri, Map<String, Object> paramMap, Integer timeOut, List<Header> headerList) {
     	HttpGet get = new HttpGet(uri);
     	if (CollectionUtils.isNotEmpty(headerList)) {
     		for (Header header : headerList) {
@@ -234,7 +240,7 @@ public class HttpClientUtil {
     		throw new IllegalStateException(e);
     	}
     }
-    public static String httpPost(String uri,  Map<String, String> paramMap, Integer timeOut, Map<String, String> headerMap, HttpHost proxy) {
+    public static String httpPost(String uri,  Map<String, Object> paramMap, Integer timeOut, Map<String, String> headerMap, HttpHost proxy) {
     	HttpPost post = new HttpPost(uri);
     	post.setHeader("Connection", "close");
     	for(Entry<String, String> entry : headerMap.entrySet()){
@@ -250,22 +256,18 @@ public class HttpClientUtil {
          }
         return httpRequest(post);
     }
-    public static String httpPost(String uri, String bodyJson, Integer timeOut, List<Header> headerList) {
+    public static String httpPost(String uri, String bodyJson, Integer timeOut, Header[] headers) {
     	HttpPost post = new HttpPost(uri);
-    	if (CollectionUtils.isNotEmpty(headerList)) {
-    		for (Header header : headerList) {
-    			post.addHeader(header);
-    		}
-    	}
+    	if (headers != null && headers.length > 0) {
+    		post.setHeaders(headers);
+        }
+    	post.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
     	if (timeOut != null) {
     		post.setConfig(RequestConfig.custom().setSocketTimeout(timeOut).setConnectTimeout(timeOut).setConnectionRequestTimeout(timeOut).build());
     	}
     	try {
     		if (StringUtils.isNotBlank(bodyJson)) {
-    			StringEntity se = new StringEntity(bodyJson);
-    			se.setContentType("text/json");
-    			se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-    			post.setEntity(se);
+    			post.setEntity(new StringEntity(bodyJson, Consts.UTF_8));
     		}
     		return httpRequest(post);
     	} catch (Exception e) {
@@ -322,7 +324,7 @@ public class HttpClientUtil {
         return null;
     }
 
-    public static List<BasicNameValuePair> map2NameValuePairList(Map<String, String> paramMap) {
+    public static List<BasicNameValuePair> map2NameValuePairList(Map<String, Object> paramMap) {
         if (paramMap == null) {
             return null;
         }
@@ -330,7 +332,12 @@ public class HttpClientUtil {
         Iterator<String> it = paramMap.keySet().iterator();
         while (it.hasNext()) {
             String key = it.next();
-            list.add(new BasicNameValuePair(key, (String) paramMap.get(key)));
+            Object valueObj = paramMap.get(key);
+            String value = "";
+            if (valueObj != null) {
+            	value = valueObj.toString();
+            }
+            list.add(new BasicNameValuePair(key, value));
         }
         return list;
     }
@@ -354,7 +361,7 @@ public class HttpClientUtil {
         	javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc
                     .getSocketFactory());
         } catch (Exception e) {
-        	new IllegalStateException(e);
+        	throw new IllegalStateException(e);
         }
     }
 
