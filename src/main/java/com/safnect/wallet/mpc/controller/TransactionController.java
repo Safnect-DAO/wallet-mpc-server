@@ -58,7 +58,7 @@ public class TransactionController {
 		trans.setConfirmed(false);
 		trans.setInternal(true);
 		
-		if (StringUtils.equalsAnyIgnoreCase(trans.getChain(), "Bitcoin", "Fractal Bitcoin", "Bell", "Litecoin", "Bitcoin Cash", "Bitcoin SV", "Dogecoin")) { // 这些链需要检测确认
+		if (StringUtils.equalsAnyIgnoreCase(trans.getChain(), "Bitcoin", "Fractal Bitcoin", "Bell", "Litecoin", "Bitcoin Cash", "Bitcoin SV", "Dogecoin", "OP_CAT Layer")) { // 这些链需要检测确认
 			this.redisTemplate.opsForList().leftPush(Constants.UNCONFIRMED_TXS_LIST, JsonUtil.toJson(new TxToConfirm(transId, trans.getTxid(), trans.getNetwork(), trans.getChain())));
 		} else {
 			trans.setConfirmed(true);

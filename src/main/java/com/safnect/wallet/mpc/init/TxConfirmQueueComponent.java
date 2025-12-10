@@ -168,7 +168,7 @@ public class TxConfirmQueueComponent {
 								if (existsTrans != null && now.getTime() - existsTrans.getSendTime().getTime() > 120000) { 
 									confirmed = true;
 								}
-							} else if (StringUtils.equals(chain, "OPCAT Layer")) {
+							} else if (StringUtils.equals(chain, "OP_CAT Layer")) {
 								String url = String.format(Constants.OPCAT_LAYER_TX_STATUS_ENDPOINT, tt.getTxid());
 								String result = HttpClientUtil.httpGet(url, null);
 								Map<String, Object> map = JsonUtil.fromJson2Map(result);
